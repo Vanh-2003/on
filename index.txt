@@ -1,0 +1,64 @@
+@model IEnumerable<On1.Models.HocSinh>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Danh sách học sinh</h2>
+
+<p>
+    @Html.ActionLink("Thêm Dữ Liệu", "Create")
+</p>
+
+@using (Html.BeginForm())
+{
+    <div>Tìm kiếm học sinh: @Html.TextBox("search")</div>
+    <input type="submit" value="Tìm kiếm" />
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.LopHoc.tenlop)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.hoten)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.anhduthi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.diemthi)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LopHoc.tenlop)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.hoten)
+            </td>
+            <td>
+                @{
+                    string path = "~/Images/" + item.anhduthi;
+                }
+                <img src="@Url.Content(path)" width="100" class="img-thumbnail" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.diemthi)
+            </td>
+            <td>
+                @Html.ActionLink("Sua", "Edit", new { id = item.sbd }) |
+                @Html.ActionLink("Chi Tiet", "Details", new { id = item.sbd }) |
+                @Html.ActionLink("Xoa", "Delete", new { id = item.sbd })
+            </td>
+        </tr>
+    }
+
+</table>
